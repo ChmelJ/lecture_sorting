@@ -37,14 +37,23 @@ def selection_sorting(list_of_numbers, direction='ascend'):
 
 def bubble_sort(list_of_numbers):
     sorted_list_of_numbers = list_of_numbers.copy()
-    is_some_swap = True
-    while is_some_swap:
-        is_some_swap = False
-        for ind in range(len(sorted_list_of_numbers)-1):
+    for i in range(len(sorted_list_of_numbers) - 1):
+        for ind in range(len(sorted_list_of_numbers) - i - 1):
             if sorted_list_of_numbers[ind] > sorted_list_of_numbers[ind + 1]:
                 sorted_list_of_numbers[ind], sorted_list_of_numbers[ind + 1] = \
                     sorted_list_of_numbers[ind + 1], sorted_list_of_numbers[ind]
-                is_some_swap = True
+    return sorted_list_of_numbers
+
+
+def insertion_sort(list_of_numbers):
+    sorted_list_of_numbers = list_of_numbers.copy()
+    for i in range(1, len(sorted_list_of_numbers)):
+        number = sorted_list_of_numbers[i]
+        k = i - 1
+        while k >= 0 and sorted_list_of_numbers[k] > number:
+            sorted_list_of_numbers[k + 1], sorted_list_of_numbers[k] = \
+                sorted_list_of_numbers[k], sorted_list_of_numbers[k + 1]
+            k = k - 1
     return sorted_list_of_numbers
 
 
@@ -52,9 +61,11 @@ def main():
     my_data = read_data('numbers.csv')
     selection_sorted_numbers = selection_sorting(my_data['series_1'], direction='ascend')
     bubble_sorted_numbers = bubble_sort(my_data['series_1'])
+    insertion_sorted_numbers = insertion_sort(my_data['series_1'])
     print(my_data['series_1'])
     print(selection_sorted_numbers)
     print(bubble_sorted_numbers)
+    print(insertion_sorted_numbers)
 
 
 if __name__ == '__main__':
