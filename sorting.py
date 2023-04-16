@@ -19,22 +19,26 @@ def read_data(file_name):
     return data_dictionary
 
 
-def selection_sorting(list_of_numbers):
-    for i in range(len(list_of_numbers)):
+def selection_sorting(list_of_numbers, direction='ascend'):
+    sorted_list_of_numbers = list_of_numbers.copy()
+    for i in range(len(sorted_list_of_numbers)):
         smallest = float('inf')
         ind_min = i
-        for ind, number in enumerate(list_of_numbers[i:]):
+        for ind, number in enumerate(sorted_list_of_numbers[i:]):
             if number < smallest:
                 smallest = number
-                ind_min = ind+i
-        list_of_numbers[i], list_of_numbers[ind_min] = list_of_numbers[ind_min], list_of_numbers[i]
-    return list_of_numbers
+                ind_min = ind + i
+        sorted_list_of_numbers[i], sorted_list_of_numbers[ind_min] =\
+            sorted_list_of_numbers[ind_min], sorted_list_of_numbers[i]
+    if direction != 'ascend':
+        sorted_list_of_numbers.reverse()
+    return sorted_list_of_numbers
 
 
 def main():
     my_data = read_data('numbers.csv')
-    selection_sorted_numbers = selection_sorting(my_data['series_3'])
-    print(my_data['series_3'])
+    selection_sorted_numbers = selection_sorting(my_data['series_1'], direction='ascend')
+    print(my_data['series_1'])
     print(selection_sorted_numbers)
 
 
